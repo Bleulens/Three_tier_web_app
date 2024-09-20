@@ -12,7 +12,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Create a VPC
-resource "aws_vpc" "example" {
-  cidr_block = "10.0.0.0/16"
+module "vpc" {
+  source = "./modules/vpc"
+
+  infra_env = var.infra.env
+  #Half of ip address space in case vpc peering needed. (Also just experimenting with different things.)
+  vpc_cidr = "10.0.0.0/17"
 }
